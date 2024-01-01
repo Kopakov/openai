@@ -1,9 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import OpenAI from 'openai';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextApiRequest) {
+
+  Response.json('completion');
+
+
   if (req.method !== 'POST') {
-    return res.status(405).end();
+    console.log('not POST');
+    // return Response.status(405).end();
   };
   const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -17,8 +22,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
     console.log(completion);
 
-    res.status(200).json(completion);
+    // res.status(200).json(completion);
+    Response.json(completion);
   } catch (error: any) {
-    res.status(500).json({ error: error.message });
+    // res.status(500).json({ error: error.message });
+
+    console.log(error);
   };
 };

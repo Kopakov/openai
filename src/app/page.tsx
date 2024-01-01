@@ -1,23 +1,29 @@
+'use client';
+
+import axios from 'axios';
 import { Inter } from 'next/font/google';
 import { useState, FormEvent } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default function Home() {
-  const [input, setInput] = useState<string>('Test');
+  const [input, setInput] = useState<string>('');
   const [response, setResponse] = useState<string>('');
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
     try {
-      const res = await fetch('/api/openai', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: input }),
+      const res = fetch('/api/openai', {
+        // method: 'POST',
+        // headers: { 'Content-Type': 'application/json' },
+        // body: JSON.stringify({ prompt: 'input' }),
       });
-      const data = await res.json();
-      const response = data.choices[0].message.content;
-      setResponse(response);
+
+      console.log(res);
+      // const data = await res.json();
+      // const response = data.choices[0].message.content;
+      // setResponse(response);
     } catch (error) {
       console.error("Error fetching response:", error);
     }
