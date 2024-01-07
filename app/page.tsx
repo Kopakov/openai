@@ -1,29 +1,27 @@
 'use client';
 
-import { Inter } from 'next/font/google';
-import { useState, FormEvent } from 'react';
-
-const inter = Inter({ subsets: ['latin'] });
-
-async function getCompletions(prompt: string) {
-  const res = await fetch('/api/openai', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ prompt: 'test-prompt------------------------' }),
-  });
-  const completions = await res.json()
-
-  return completions;
-};
+import { Box, Button, Card, CardContent, Container, LinearProgress, Stack, TextField, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [input, setInput] = useState('');
   const [response, setResponse] = useState('');
   const [loading, setLoading] = useState(false);
+  const [output, setOutput] = useState('');
+  const [showWelcomeScreen, setShowWelcomeScreen] = useState(true);
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleInputEnterPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.code == 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit();
+    };
+  };
+
+  const handleSubmit = async () => {
     setLoading(true);
+    setOutput('');
+    setInput('');
+    setShowWelcomeScreen(false);
 
     try {
       const res = await fetch('/api/openai', {
@@ -42,34 +40,103 @@ export default function Home() {
     };
   };
 
+  useEffect(() => {
+    setOutput(response);
+  }, [response]);
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center p-24 bg-white ${inter.className}`}
+    <Container
+      maxWidth='sm'
+      sx={{ py: 3, height: '100%' }}
     >
-      <h1 className="font-bold text-3xl mb-10">
-        Ask AI
-      </h1>
+      <Stack sx={{ height: '100%' }}>
+        <Typography
+          variant='h4'
+          textAlign='center'
+          sx={{
+            mb: 3,
+            fontWeight: 700,
+          }}
+        >
+          💻 Ask AI 🧠
+        </Typography>
 
-      <div className="w-1/2">
-        <form onSubmit={handleSubmit}>
-          <textarea
-            className="w-full h-24 border border-gray-300 rounded p-4 outline-none transition-all mb-4"
+        <Box
+          sx={{
+            position: 'relative',
+            flexGrow: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.02)',
+            borderRadius: '4px',
+            mb: 3,
+          }}
+        >
+          {loading &&
+            <LinearProgress
+              color='secondary'
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                borderTopRightRadius: 'inherit',
+                borderTopLeftRadius: 'inherit',
+              }}
+            />
+          }
+          {!showWelcomeScreen && !loading &&
+            <textarea
+              className='output'
+              value={output}
+              onChange={e => setOutput(e.target.value)}
+            />
+          }
+          {showWelcomeScreen && !loading &&
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
+                width: '100%',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <Typography variant='h5'>
+                Welcome!
+              </Typography>
+              <Typography paragraph mb={1}>
+                Let's start with a prompt below
+              </Typography>
+              <Box fontSize={19}>
+                ⬇️
+              </Box>
+            </Box>
+          }
+        </Box>
+
+        <Box mt='auto'>
+          <TextField
             value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Send a message"
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={handleInputEnterPress}
+            placeholder="Your message"
+            multiline
+            maxRows={8}
+            sx={{ mb: 2 }}
+            fullWidth
+            autoFocus
           />
-          <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded">Submit</button>
-        </form>
+          <Button
+            variant='contained'
+            size='large'
+            fullWidth
+            onClick={handleSubmit}
+          >
+            {loading ? 'Generating...' : 'Go'}
+          </Button>
+        </Box>
 
-        {loading && 'Loading...'}
-
-        {response && (
-          <div className="mt-4 p-4 border rounded shadow">
-            <p className="mt-2 text-gray-700">{response}</p>
-          </div>
-        )}
-      </div>
-
-    </main>
-  )
-}
+      </Stack>
+    </Container>
+  );
+};
