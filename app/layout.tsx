@@ -1,6 +1,7 @@
 import { CssBaseline } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { Roboto } from 'next/font/google';
+import { ContextProvider } from 'context';
 import 'styles/index.css';
 
 type Props = {
@@ -23,7 +24,9 @@ export default function RootLayout(props: Props) {
       <body className={roboto.className}>
         <AppRouterCacheProvider>
           <CssBaseline />
-          {children}
+          <ContextProvider>
+            {children}
+          </ContextProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
