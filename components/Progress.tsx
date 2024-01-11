@@ -1,3 +1,4 @@
+'use client';
 import { LinearProgress } from '@mui/material';
 import { useAppContext } from 'context';
 

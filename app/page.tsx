@@ -1,30 +1,8 @@
 'use client';
-
-import { useEffect } from 'react';
 import { Box, Container, Stack } from '@mui/material';
 import { ChatForm, Header, ImageOutput, ModeSwitch, Progress, TextOutput, WelcomeScreen } from 'components';
-import { useAppContext } from 'context';
 
-export default function HomePage() {
-  const { state, setAppState } = useAppContext();
-  const { response, mode } = state;
-
-  // Update output on response change
-  useEffect(() => {
-    setAppState({
-      ...state,
-      output: response,
-    });
-  }, [response]);
-
-  // Clean output on mode change
-  useEffect(() => {
-    setAppState({
-      ...state,
-      output: '',
-    });
-  }, [mode]);
-
+const HomePage = () => {
   return (
     <Container
       maxWidth='sm'
@@ -59,3 +37,5 @@ export default function HomePage() {
     </Container>
   );
 };
+
+export default HomePage;

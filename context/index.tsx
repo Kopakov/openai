@@ -6,9 +6,7 @@ import { ModeType } from 'types';
 type AppState = {
   input: string;
   response: string;
-  output: string;
   loading: boolean;
-  showWelcomeScreen: boolean;
   mode: ModeType;
 };
 
@@ -24,9 +22,7 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 const initialState = {
   input: '',
   response: '',
-  output: '',
   loading: false,
-  showWelcomeScreen: true,
   mode: 'text' as ModeType,
 };
 

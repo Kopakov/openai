@@ -18,6 +18,6 @@ export async function POST(req: Request) {
     });
     return Response.json(completions);
   } catch (error: any) {
-    return Response.json('Server error: error fetching Open AI');
+    return Response.json('Server error: error generating text');
   };
 };

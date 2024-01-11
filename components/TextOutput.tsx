@@ -1,18 +1,19 @@
+'use client';
 import { useAppContext } from 'context';
 
 const TextOutput = () => {
   const { state, setAppState } = useAppContext();
-  const { showWelcomeScreen, loading, mode, output } = state;
+  const { mode, response } = state;
 
   return (
     <>
-      {!showWelcomeScreen && !loading && mode === 'text' &&
+      {mode === 'text' && response &&
         <textarea
           className='output'
-          value={output}
+          value={response}
           onChange={e => setAppState({
             ...state,
-            output: e.target.value
+            response: e.target.value
           })}
         />
       }

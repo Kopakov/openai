@@ -1,13 +1,14 @@
+'use client';
 import { Box, Typography } from '@mui/material';
 import { useAppContext } from 'context';
 
 const WelcomeScreen = () => {
-  const { state, setAppState } = useAppContext();
-  const { showWelcomeScreen, loading } = state;
+  const { state } = useAppContext();
+  const { response, loading } = state;
 
   return (
     <>
-      {showWelcomeScreen && !loading &&
+      {!response && !loading &&
         <Box
           sx={{
             display: 'flex',

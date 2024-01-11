@@ -1,10 +1,12 @@
+'use client';
+import { KeyboardEventHandler } from 'react';
 import { TextField, Button } from '@mui/material';
 import { useAppContext } from 'context';
-import { KeyboardEventHandler } from 'react';
+import { generateContent } from 'services';
 
 const ChatForm = () => {
   const { state, setAppState } = useAppContext();
-  const { input, loading } = state;
+  const { input, loading, mode } = state;
 
   // Send form on enter press inside input
   const handleInputEnterPress: KeyboardEventHandler<HTMLDivElement> = e => {
@@ -16,30 +18,27 @@ const ChatForm = () => {
 
   // Submit form
   const handleSubmit = async () => {
+    // Reset app while loading response
     setAppState({
       ...state,
       loading: true,
-      output: '',
       input: '',
-      showWelcomeScreen: false,
+      response: '',
     });
 
     try {
-      const res = await fetch('/api/openai', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt: input }),
-      });
+      const response = await generateContent(mode, input);
 
-      const data = await res.json();
-      const response = data.choices[0].message.content;
-
+      // Update state with response
       setAppState({
         ...state,
         response,
         loading: false,
       });
     } catch (error) {
+      console.log(error);
+
+      // Update state with error response
       setAppState({
         ...state,
         response: 'Error fetching Open AI. Please try again or reload page',

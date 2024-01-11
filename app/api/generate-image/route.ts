@@ -12,17 +12,14 @@ export async function POST(req: Request) {
     const response = await openai.images.generate({
       prompt: prompt,
       model: 'dall-e-3',
-      quality: 'hd',
-      size: '1792x1024',
+      // quality: 'standard',
+      size: '1024x1024',
+      style: 'vivid',
     });
-
     const imageUrl = response.data[0].url;
 
-    console.log(imageUrl);
-
-    return Response.json('Image Generated');
-
+    return Response.json(imageUrl);
   } catch (error) {
-    return Response.json('Server error: error fetching Open AI');
+    return Response.json('Server error: error generating image');
   };
 };

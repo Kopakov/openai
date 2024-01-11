@@ -1,3 +1,5 @@
+'use client';
+import { useEffect } from 'react';
 import { Box, RadioGroup, FormControlLabel, Radio } from '@mui/material';
 import { ModeType } from 'types';
 import { useAppContext } from 'context';
@@ -5,6 +7,14 @@ import { useAppContext } from 'context';
 const ModeSwitch = () => {
   const { state, setAppState } = useAppContext();
   const { mode } = state;
+
+  const handleModeChange = (mode: ModeType) => {
+    setAppState({
+      ...state,
+      mode,
+      response: '', // Clean response on mode change
+    });
+  };
 
   return (
     <Box
@@ -19,10 +29,7 @@ const ModeSwitch = () => {
       </Box>
       <RadioGroup
         value={mode}
-        onChange={(_, value) => setAppState({
-          ...state,
-          mode: value as ModeType
-        })}
+        onChange={(_, value) => handleModeChange(value as ModeType)}
         name="mode-input"
         row
         sx={{
