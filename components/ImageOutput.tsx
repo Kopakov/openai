@@ -37,19 +37,7 @@ const ImageOutput = () => {
             <Typography sx={{ visibility: 'visible !important' }}>Loading image...</Typography>
           </Skeleton>
 
-          {/* <Image
-            src={response}
-            width={512}
-            height={512}
-            alt=''
-            style={{
-              display: 'block',
-              maxWidth: '100%',
-              margin: 'auto',
-            }}
-          /> */}
-
-          <img
+          <Image
             src={response}
             width={512}
             height={512}
@@ -60,6 +48,18 @@ const ImageOutput = () => {
               margin: 'auto',
             }}
           />
+
+          {/* <img
+            src={response}
+            width={512}
+            height={512}
+            alt=''
+            style={{
+              display: 'block',
+              maxWidth: '100%',
+              margin: 'auto',
+            }}
+          /> */}
 
         </Box>
       }

@@ -1,3 +1,5 @@
+'use client';
+
 import { CssBaseline } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { Roboto } from 'next/font/google';
@@ -23,8 +25,8 @@ export default function RootLayout(props: Props) {
       </head>
       <body className={roboto.className}>
         <AppRouterCacheProvider>
-          <CssBaseline />
           <ContextProvider>
+            <CssBaseline />
             {children}
           </ContextProvider>
         </AppRouterCacheProvider>

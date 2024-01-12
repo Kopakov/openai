@@ -1,6 +1,6 @@
 'use client';
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { ModeType } from 'types';
+import { ModeType, ThemeType } from 'types';
 
 // Types
 type AppState = {

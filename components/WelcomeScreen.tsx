@@ -23,7 +23,7 @@ const WelcomeScreen = () => {
             Welcome!
           </Typography>
           <Typography paragraph mb={1}>
-            Let's start with a prompt below
+            Let&apos;s start with a prompt below
           </Typography>
           <Box fontSize={19}>
             ⬇️
