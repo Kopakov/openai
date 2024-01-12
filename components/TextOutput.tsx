@@ -15,6 +15,9 @@ const TextOutput = () => {
             ...state,
             response: e.target.value
           })}
+          style={{
+            fontFamily: 'inherit',
+          }}
         />
       }
     </>
