@@ -17,6 +17,7 @@ const WelcomeScreen = () => {
             width: '100%',
             alignItems: 'center',
             justifyContent: 'center',
+            padding: '14px 16px',
           }}
         >
           <Typography variant='h5'>

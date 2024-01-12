@@ -72,13 +72,14 @@ const ChatForm = () => {
         maxRows={8}
         sx={{ mb: 2 }}
         fullWidth
-        autoFocus
+      // autoFocus
       />
       <Button
         variant='contained'
         size='large'
         fullWidth
         onClick={handleSubmit}
+        sx={{ mb: 2 }}
       >
         {loading ? 'Generating...' : 'Go'}
       </Button>
