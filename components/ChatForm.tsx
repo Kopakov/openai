@@ -24,24 +24,35 @@ const ChatForm = () => {
       loading: true,
       input: '',
       response: '',
+      error: '',
     });
 
     try {
       const response = await generateContent(mode, input);
 
-      // Update state with response
+      // Error handling
+      if (response.error) {
+        setAppState({
+          ...state,
+          loading: false,
+          response: '',
+          error: response.message,
+        });
+        return; // Stop
+      };
+
+      // Success response
       setAppState({
         ...state,
         response,
         loading: false,
+        error: '',
       });
     } catch (error) {
-      console.log(error);
-
       // Update state with error response
       setAppState({
         ...state,
-        response: 'Error fetching Open AI. Please try again or reload page',
+        error: 'Error fetching Open AI. Please try again or reload page',
         loading: false,
       });
     };

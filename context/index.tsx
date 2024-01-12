@@ -8,6 +8,7 @@ type AppState = {
   response: string;
   loading: boolean;
   mode: ModeType;
+  error: string;
 };
 
 type AppContextProps = {
@@ -24,6 +25,7 @@ const initialState = {
   response: '',
   loading: false,
   mode: 'text' as ModeType,
+  error: '',
 };
 
 type Props = {

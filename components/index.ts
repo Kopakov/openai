@@ -5,3 +5,4 @@ export { default as ChatForm } from './ChatForm';
 export { default as TextOutput } from './TextOutput';
 export { default as ImageOutput } from './ImageOutput';
 export { default as WelcomeScreen } from './WelcomeScreen';
+export { default as ErrorMessage } from './ErrorMessage';

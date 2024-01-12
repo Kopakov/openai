@@ -19,7 +19,10 @@ export async function POST(req: Request) {
     const imageUrl = response.data[0].url;
 
     return Response.json(imageUrl);
-  } catch (error) {
-    return Response.json('Server error: error generating image');
+  } catch (error: any) {
+    return Response.json({
+      error: true,
+      message: error.error.message,
+    });
   };
 };

@@ -18,6 +18,9 @@ export async function POST(req: Request) {
     });
     return Response.json(completions);
   } catch (error: any) {
-    return Response.json('Server error: error generating text');
+    return Response.json({
+      error: true,
+      message: error.error.message,
+    });
   };
 };

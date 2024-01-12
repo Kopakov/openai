@@ -1,6 +1,6 @@
 'use client';
 import { Box, Container, Stack } from '@mui/material';
-import { ChatForm, Header, ImageOutput, ModeSwitch, Progress, TextOutput, WelcomeScreen } from 'components';
+import { ChatForm, ErrorMessage, Header, ImageOutput, ModeSwitch, Progress, TextOutput, WelcomeScreen } from 'components';
 
 const HomePage = () => {
   return (
@@ -10,6 +10,7 @@ const HomePage = () => {
     >
       <Stack sx={{ height: '100%' }}>
         <Header />
+        <ErrorMessage />
 
         {/* Top/Middle part taking available space */}
         <Box

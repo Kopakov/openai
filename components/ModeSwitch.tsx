@@ -12,6 +12,7 @@ const ModeSwitch = () => {
     setAppState({
       ...state,
       mode,
+      input: '',// Clean input on mode change
       response: '', // Clean response on mode change
     });
   };
